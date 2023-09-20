@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+int i=0;
 void MENU()
 {
 
@@ -32,23 +33,52 @@ void MENU()
     void AJOUTER()
     {
     NOUVELLE_TACHE Tache;
-    printf(" Titre : ");
+    printf("\n Titre : ");
     scanf(" %[^\n]s ",Tache.Titre);
     printf(" Description : ");
     scanf(" %[^\n]s ",Tache.Description);
     printf(" Statut : ");
     scanf(" %[^\n]s ",Tache.Statut);
-    printf("  : ");
+    printf(" DEADLINE dd/mm/yy\n");
+    printf("\t\t dd : ");
+    scanf("%d",&Tache.dd);
+    printf("\t\t mm : ");
+    scanf("%d",&Tache.mm);
+    printf("\t\t yy : ");
+    scanf("%d",&Tache.yy);
+    }
+    void PLUSIEURS{
+   NOUVELLE_TACHE Tache;
+    
+    int x ,a;
+    do{
+     printf("\n Titre : ");
+    scanf(" %[^\n]s ",Tache.Titre[i]);
+    printf(" Description : ");
+    scanf(" %[^\n]s ",Tache.Description);
+    printf(" Statut : ");
     scanf(" %[^\n]s ",Tache.Statut);
-
-
+    printf(" DEADLINE dd/mm/yy\n");
+    printf("\t\t dd : ");
+    scanf("%d",&Tache.dd);
+    printf("\t\t mm : ");
+    scanf("%d",&Tache.mm);
+    printf("\t\t yy : ");
+    scanf("%d",&Tache.yy);
+        
+      
+      
+    }while(x!=0)
+    
+    
     }
 
 
 
 int main(void)
 {
-AJOUTER();
+    MENU();
+    AJOUTER();
 
     return (0);
 
