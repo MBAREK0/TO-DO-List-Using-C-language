@@ -38,6 +38,8 @@ void MENU()
     scanf(" %[^\n]s ",Tache.Description);
     printf(" Statut : ");
     scanf(" %[^\n]s ",Tache.Statut);
+    printf(" DEADLINE : ");
+    scanf(" %[^\n]s ",Tache.Statut);
 
 
     }
