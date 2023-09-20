@@ -48,7 +48,8 @@ void MENU()
 
 int main(void)
 {
-AJOUTER();
+    MENU();
+    AJOUTER();
 
     return (0);
 
