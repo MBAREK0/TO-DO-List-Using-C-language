@@ -1,6 +1,8 @@
 
 #include <stdio.h>
-int i=0;
+
+int i=0,count=0;
+double second;
 void MENU()
 {
 
@@ -17,69 +19,85 @@ void MENU()
 
 
 
+
 }
    typedef struct{
          char Titre[50];
          char Description[250];
          char Statut[20];
-         int  Id[50];
+         int  Id;
          struct DEADLINE{
-              int yy[50];
-              int mm[50];
-              int dd[50];
+              int yy,mm,dd,heur,min,second;
                       };
      }NOUVELLE_TACHE;
-
+/////////////////////////////////////////////deathlien
+     double  deathlien(i)
+{
+   NOUVELLE_TACHE Tache[i];
+    second=Tache[i].min*60+Tache[i].heur*3600+Tache[i].dd*24*3600+Tache[i].mm*30*24*3600+Tache[i].yy*365*24*3600;
+    return second;
+}
+/////////////////////////////////////////////
     void AJOUTER()
     {
-    NOUVELLE_TACHE Tache;
+    NOUVELLE_TACHE Tache[100];
     printf("\n Titre : ");
-    scanf(" %[^\n]s ",Tache.Titre);
+    scanf(" %[^\n]s ",Tache[i].Titre);
     printf(" Description : ");
-    scanf(" %[^\n]s ",Tache.Description);
+    scanf(" %[^\n]s ",Tache[i].Description);
     printf(" Statut : ");
-    scanf(" %[^\n]s ",Tache.Statut);
+    scanf(" %[^\n]s ",Tache[i].Statut);
     printf(" DEADLINE dd/mm/yy\n");
     printf("\t\t dd : ");
-    scanf("%d",&Tache.dd);
+    scanf("%d",&Tache[i].dd);
     printf("\t\t mm : ");
-    scanf("%d",&Tache.mm);
+    scanf("%d",&Tache[i].mm);
     printf("\t\t yy : ");
-    scanf("%d",&Tache.yy);
-    }
-    void PLUSIEURS{
-   NOUVELLE_TACHE Tache;
-
-    int x ,a;
-    do{
-     printf("\n Titre : ");
-    scanf(" %[^\n]s ",Tache.Titre[i]);
-    printf(" Description : ");
-    scanf(" %[^\n]s ",Tache.Description);
-    printf(" Statut : ");
-    scanf(" %[^\n]s ",Tache.Statut);
-    printf(" DEADLINE dd/mm/yy\n");
-    printf("\t\t dd : ");
-    scanf("%d",&Tache.dd);
-    printf("\t\t mm : ");
-    scanf("%d",&Tache.mm);
-    printf("\t\t yy : ");
-    scanf("%d",&Tache.yy);
-        i++; ///  hire
-
-
-    }while(x!=0)
-
+    scanf("%d",&Tache[i].yy);
+    printf("\t\t heur : ");
+    scanf("%d",&Tache[i].heur);
+    printf("\t\t min : ");
+    scanf("%d",&Tache[i].min);
+    deathlien(i);
+    i++;
+    count++;
+    Tache[i].Id=count;
+    int e ;
+    printf("0:EXITE\t 1: AJOUTER NOUVELLE TACHE\t  \n");
+    printf("=> ");
+    scanf("%d",&e);
+    if(e==0)
+    {
+        system("cls");
+        main();
 
     }
+     else if(e==1)
+    {
+        system("cls");
+        AJOUTER();
+    }
+    else
+        printf("wrong numbre");
 
-
-
+    }
+///////////////////////////////////
 int main(void)
 {
     MENU();
-    AJOUTER();
 
+  int Choss;
+  printf("\n\n\t\tentre your choss : ");
+  scanf("%d",&Choss);
+  switch(Choss)
+  {
+      case 0: system("exit");break;
+      case 1:
+           AJOUTER();
+           break;
+
+
+  }
     return (0);
 
 }
