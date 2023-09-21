@@ -1,5 +1,7 @@
 
 #include <stdio.h>
+#include<string.h>
+#include<stdlib.h>
 
 int i=0,count=0;
 double second;
@@ -38,6 +40,29 @@ void MENU()
     return second;
 }
 /////////////////////////////////////////////
+void status(i)
+{
+    NOUVELLE_TACHE Tache[i];
+    char s[20][20]={"TO DO","DOING","DONE"};
+    int status;
+    printf("entr your choes : ");
+    scanf("%d",&status);
+     switch(status)
+         {
+             case 1:  strcpy(Tache[i].Statut,s[0]);break;
+             case 2:   strcpy(Tache[i].Statut,s[1]);break;
+             case 3:  strcpy(Tache[i].Statut,s[2]);break;
+             default:{
+                 printf("wrong number ");
+                break;
+             }
+
+
+         }
+
+
+
+}
     void AJOUTER()
     {
     NOUVELLE_TACHE Tache[100];
@@ -46,8 +71,10 @@ void MENU()
     printf(" Description : ");
     scanf(" %[^\n]s ",Tache[i].Description);
     printf(" Statut : ");
-    scanf(" %[^\n]s ",Tache[i].Statut);
-    printf(" DEADLINE dd/mm/yy\n");
+    printf("1 : TO DO \t 2: DOING \t 3: DONE\n");
+    status(i);
+    printf(" Statut :%s",Tache[i].Statut);
+    printf("\n DEADLINE dd/mm/yy\n");
     printf("\t\t dd : ");
     scanf("%d",&Tache[i].dd);
     printf("\t\t mm : ");
