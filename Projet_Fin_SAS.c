@@ -1,24 +1,29 @@
 
+
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<stdio.h>
+#include<stdio.h>
 #include<time.h>
 
-int i=0,count=0;
+double second ;
+int i=0;
+long long  count=1111;
 double second;
 void MENU()
 {
 
-     printf("\n\t\t __________________________________________________________________________________ ");
-     printf("\n\t\t|                         1.Ajouter une nouvelle tache                             |");
-     printf("\n\t\t|__________________________________________________________________________________|");
-     printf("\n\t\t|2.Afficher la liste de toutes les tâches |     3. Modifier une tâche              |");
-     printf("\n\t\t|_________________________________________|________________________________________|");
-     printf("\n\t\t|4.Supprimer une tâche par identifiant    |     5. Rechercher les Tâches           |");
-     printf("\n\t\t|_________________________________________|________________________________________|");
-     printf("\n\t\t|                                                                                  |");
-     printf("\n\t\t|                                    0. EXITE                                      |");
-     printf("\n\t\t|__________________________________________________________________________________|");
+     printf("\n\t\t\t __________________________________________________________________________________ ");
+     printf("\n\t\t\t|                         1.Ajouter une nouvelle tache                             |");
+     printf("\n\t\t\t|__________________________________________________________________________________|");
+     printf("\n\t\t\t|2.Afficher la liste de toutes les tâches |     3. Modifier une tâche              |");
+     printf("\n\t\t\t|_________________________________________|________________________________________|");
+     printf("\n\t\t\t|4.Supprimer une tâche par identifiant    |     5. Rechercher les Tâches           |");
+     printf("\n\t\t\t|_________________________________________|________________________________________|");
+     printf("\n\t\t\t|                                                                                  |");
+     printf("\n\t\t\t|                                    0. EXITE                                      |");
+     printf("\n\t\t\t|__________________________________________________________________________________|");
 }
    typedef struct{
          char Titre[50];
@@ -29,7 +34,10 @@ void MENU()
               int yy,mm,dd,heur,min,second;
                       };
      }NOUVELLE_TACHE;
-      NOUVELLE_TACHE Tache[100];
+       NOUVELLE_TACHE Tache[100];
+        NOUVELLE_TACHE TASK;
+
+
 /////////////////////////////////////////////deathlien
      double  deathlien(i)
 {
@@ -59,13 +67,19 @@ void status(i)
          {
              case 1: {
                   strcpy(Tache[i].Statut,s[0]);
-                 printf(" Statut :%s",Tache[i].Statut);
+                  printf(" Statut :%s",Tache[i].Statut);
                  break;
              }
-             case 2:   {strcpy(Tache[i].Statut,s[1]);
-             printf(" Statut :%s",Tache[i].Statut);
-             break;}
-             case 3:  strcpy(Tache[i].Statut,s[2]);break;
+             case 2:   {
+                 strcpy(Tache[i].Statut,s[1]);
+                 printf(" Statut :%s",Tache[i].Statut);
+                break;
+             }
+             case 3:  {
+                   strcpy(Tache[i].Statut,s[2]);
+                   printf(" Statut :%s",Tache[i].Statut);
+                   break;
+                   }
              default:{
                  printf("wrong number ");
                 break;
@@ -98,7 +112,7 @@ void status(i)
     deathlien(i);
     i++;
     count++;
-    Tache[i].Id=count;
+    Tache[0].Id=count;
     int e ;
     printf("0:EXITE\t 1: AJOUTER NOUVELLE TACHE\t  \n");
     printf("=> ");
@@ -112,6 +126,7 @@ void status(i)
      else if(e==1)
     {
         system("cls");
+
         AJOUTER();
     }
     else
@@ -119,19 +134,35 @@ void status(i)
 
     }
 ///////////////////////////////////
+
 void AFFICHER(){
 
+     for(int j=0;j<i;j++)
+     {
+         for(int m=j+1;m<i;m++)
+         {
+             if(strcmp(Tache[j].Titre, Tache[m].Titre)>0)
+             {
+                  TASK = Tache[j];
+                    Tache[j] = Tache[m];
+                    Tache[m] = TASK;
+             }
+
+         }
+     }
      for (int j=0;j<i;j++){
 
 
     printf("\n Titre : %s",Tache[j].Titre);
     printf("\n Description :%s ",Tache[j].Description);
     printf(" \nStatut :%s ",Tache[j].Statut);
-     printf("\n_____________________");
+    printf(" \nID     :%d ",Tache[j].Id);
+
      }
 
+
+
 }
-///////////////////////////////////
 int main(void)
 {
     MENU();
@@ -141,15 +172,12 @@ int main(void)
   scanf("%d",&Choss);
   switch(Choss)
   {
-      case 0: system("exit");
-             break;
+      case 0: system("exit");break;
       case 1:
            system("cls");
            AJOUTER();
            break;
-     case 2:system("cls");
-           AFFICHER();
-           break;
+      case 2:system("cls");AFFICHER();break;
 
 
   }

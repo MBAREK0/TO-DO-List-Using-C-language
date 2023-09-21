@@ -29,10 +29,11 @@ void MENU()
               int yy,mm,dd,heur,min,second;
                       };
      }NOUVELLE_TACHE;
+      NOUVELLE_TACHE Tache[100];
 /////////////////////////////////////////////deathlien
      double  deathlien(i)
 {
-   NOUVELLE_TACHE Tache[i];
+
     second=Tache[i].min*60+Tache[i].heur*3600+Tache[i].dd*24*3600+Tache[i].mm*30*24*3600+(Tache[i].yy-1970)*365*24*3600;
     return second;
 }
@@ -49,7 +50,7 @@ double timenow(){
 /////////////////////////////////////////////
 void status(i)
 {
-    NOUVELLE_TACHE Tache[i];
+
     char s[20][20]={"TO DO","DOING","DONE"};
     int status;
     printf("entr your choes : ");
@@ -66,7 +67,8 @@ void status(i)
              break;}
              case 3:  strcpy(Tache[i].Statut,s[2]);break;
              default:{
-                 printf("wrong number ");
+                 printf("wrong number \n");
+                 
                 break;
                      }
 
@@ -75,7 +77,7 @@ void status(i)
 }
     void AJOUTER()
     {
-    NOUVELLE_TACHE Tache[100];
+
     printf("\n Titre : ");
     scanf(" %[^\n]s ",Tache[i].Titre);
     printf(" Description : ");
@@ -99,7 +101,7 @@ void status(i)
     count++;
     Tache[i].Id=count;
     int e ;
-    printf("0:EXITE\t 1: AJOUTER NOUVELLE TACHE\t  \n");
+    printf("0:BACK TO MENU\t\t 1: AJOUTER NOUVELLE TACHE\t  \n");
     printf("=> ");
     scanf("%d",&e);
     if(e==0)
@@ -126,7 +128,7 @@ void AFFICHER(){
     printf("\n Titre : %s",Tache[j].Titre);
     printf("\n Description :%s ",Tache[j].Description);
     printf(" \nStatut :%s ",Tache[j].Statut);
-     printf("_____________________");
+     printf("\n_____________________");
      }
 
 }
@@ -140,10 +142,14 @@ int main(void)
   scanf("%d",&Choss);
   switch(Choss)
   {
-      case 0: system("exit");break;
+      case 0: system("exit");
+             break;
       case 1:
            system("cls");
            AJOUTER();
+           break;
+     case 2:system("cls");
+           AFFICHER();
            break;
 
 
