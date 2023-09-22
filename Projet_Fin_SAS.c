@@ -3,14 +3,13 @@
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include<stdio.h>
-#include<stdio.h>
 #include<time.h>
 
 double second ;
 int i=0;
-long long  count=1111;
+int  count=1111;
 double second;
+int year=0,day=0 ,mounth=0,heuur=0,minut=0;
 void MENU()
 {
 
@@ -31,7 +30,7 @@ void MENU()
          char Statut[20];
          int  Id;
          struct DEADLINE{
-              int yy,mm,dd,heur,min,second;
+              int yy,mm,dd,heur;
                       };
      }NOUVELLE_TACHE;
        NOUVELLE_TACHE Tache[100];
@@ -42,20 +41,20 @@ void MENU()
      double  deathlien(i)
 {
 
-    second=Tache[i].min*60+Tache[i].heur*3600+Tache[i].dd*24*3600+Tache[i].mm*30*24*3600+(Tache[i].yy-1970)*365*24*3600;
+    second=(Tache[i].heur)*3600+(Tache[i].dd-16)*24*3600+(Tache[i].mm)*30*24*3600+(Tache[i].yy-1970)*365*24*3600;
     return second;
 }
 double timenow(){
      time_t current_time;
        time(&current_time);
 
-    printf("Current time in seconds since epoch: %ld\n", current_time);
+   // printf("Current time in seconds since epoch: %ld\n", current_time);
     int now = current_time;
 
     return now;
 
 }
-/////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void status(i)
 {
 
@@ -107,12 +106,13 @@ void status(i)
     scanf("%d",&Tache[i].yy);
     printf("\t\t heur : ");
     scanf("%d",&Tache[i].heur);
-    printf("\t\t min : ");
-    scanf("%d",&Tache[i].min);
     deathlien(i);
+    count+=1;
+    Tache[i].Id=count;
+
     i++;
-    count++;
-    Tache[0].Id=count;
+
+
     int e ;
     printf("0:EXITE\t 1: AJOUTER NOUVELLE TACHE\t  \n");
     printf("=> ");
@@ -134,6 +134,13 @@ void status(i)
 
     }
 ///////////////////////////////////
+float AFDAY(float x){
+    float day;
+
+    day = x/60/60/24;
+
+   return day;
+}
 
 void AFFICHER(){
 
@@ -157,11 +164,11 @@ void AFFICHER(){
     printf("\n Description :%s ",Tache[j].Description);
     printf(" \nStatut :%s ",Tache[j].Statut);
     printf(" \nID     :%d ",Tache[j].Id);
-
+    float result;
+    result=deathlien(j)-timenow();
+    printf("\n day => %f",AFDAY(result));
+   //printf("====> %d",rersult);
      }
-
-
-
 }
 int main(void)
 {
