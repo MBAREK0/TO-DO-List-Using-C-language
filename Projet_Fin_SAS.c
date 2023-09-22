@@ -1,12 +1,8 @@
 
-
-
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
-
-
 double second ;
 int i=0;
 int  count=1111;
@@ -112,7 +108,7 @@ float AFDAY(float x){
 float AFheur(float y){
     float heur , r;
     heur = fmod(y,(int)y);
-    r =heur*24;
+    r =(int)heur*24;
 
    return r;
 }
@@ -141,9 +137,27 @@ void AFFICHERALPHA(){
     printf(" \nID     :%d ",Tache[j].Id);
     float result;
     result=deathlien(j)-timenow();
-     printf("\n heur => %f",AFheur(AFDAY(result)));
-     printf("\n day => %.0f",AFDAY(result));
+     printf("\n heur => %.0f",AFheur(AFDAY(result)));
+     printf("\n day => %.0f\n",AFDAY(result));
      }
+     int e ;
+    printf(" 1: <--  \t  0:EXITE \n");
+    printf("=> ");
+    scanf("%d",&e);
+    if(e==0)
+    {
+        system("cls");
+        main();
+
+    }
+     else if(e==1)
+    {
+        system("cls");
+
+        AFFICHER();
+    }
+    else
+        printf("wrong numbre");
 }
 void AFFICHERDEADLINE(){
 
@@ -169,9 +183,27 @@ void AFFICHERDEADLINE(){
     printf(" \nID     :%d ",Tache[j].Id);
     float result;
     result=deathlien(j)-timenow();
-     printf("\n heur => %f",AFheur(AFDAY(result)));
+     printf("\n heur => %.0f",AFheur(AFDAY(result)));
      printf("\n day => %.0f",AFDAY(result));
      }
+     int e ;
+    printf("  1: <--  \t 0:EXITE\t   \n");
+    printf("=> ");
+    scanf("%d",&e);
+    if(e==0)
+    {
+        system("cls");
+        main();
+
+    }
+     else if(e==1)
+    {
+        system("cls");
+
+        AFFICHER();
+    }
+    else
+        printf("wrong numbre");
 }
 void AFFICHE3(){
 
@@ -197,16 +229,34 @@ void AFFICHE3(){
             printf(" \nID     :%d ",Tache[j].Id);
             float result;
             result=deathlien(j)-timenow();
-            printf("\n heur => %f",AFheur(AFDAY(result)));
+            printf("\n heur => %.0f",AFheur(AFDAY(result)));
             printf("\n day => %.0f",AFDAY(result));
         }
 
      }
+     int e ;
+    printf("  1: <--  \t 0:EXITE\t   \n");
+    printf("=> ");
+    scanf("%d",&e);
+    if(e==0)
+    {
+        system("cls");
+        main();
+
+    }
+     else if(e==1)
+    {
+        system("cls");
+
+        AFFICHER();
+    }
+    else
+        printf("wrong numbre");
 }
 void AFFICHER(){
     printf("1:par ordre alphabétique\n");
     printf("2: par deadline\n");
-    printf("2:Afficher les tâches dont le deadline est dans 3 jours ou moins\n");
+    printf("3:Afficher les tâches dont le deadline est dans 3 jours ou moins\n");
     int k;
     printf("enter your choose");
     scanf("%d",&k);
@@ -217,7 +267,6 @@ void AFFICHER(){
         case 3:AFFICHE3();break;
         default:system("cls");
                 printf("wrong number");AFFICHER();
-
     }
 }
 int main(void)
@@ -235,8 +284,6 @@ int main(void)
            AJOUTER();
            break;
       case 2:system("cls");AFFICHER();break;
-
-
   }
     return (0);
 
