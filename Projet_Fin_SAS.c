@@ -5,10 +5,12 @@
 #include<stdlib.h>
 #include<time.h>
 
+
 double second ;
 int i=0;
 int  count=1111;
 double second;
+ char s[20][20]={"TO DO","DOING","DONE"};
 int year=0,day=0 ,mounth=0,heuur=0,minut=0;
 void MENU()
 {
@@ -55,38 +57,7 @@ double timenow(){
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void status(i)
-{
 
-    char s[20][20]={"TO DO","DOING","DONE"};
-    int status;
-    printf("entr your choes : ");
-    scanf("%d",&status);
-     switch(status)
-         {
-             case 1: {
-                  strcpy(Tache[i].Statut,s[0]);
-                  printf(" Statut :%s",Tache[i].Statut);
-                 break;
-             }
-             case 2:   {
-                 strcpy(Tache[i].Statut,s[1]);
-                 printf(" Statut :%s",Tache[i].Statut);
-                break;
-             }
-             case 3:  {
-                   strcpy(Tache[i].Statut,s[2]);
-                   printf(" Statut :%s",Tache[i].Statut);
-                   break;
-                   }
-             default:{
-                 printf("wrong number ");
-                break;
-                     }
-
-
-         }
-}
     void AJOUTER()
     {
 
@@ -94,9 +65,8 @@ void status(i)
     scanf(" %[^\n]s ",Tache[i].Titre);
     printf(" Description : ");
     scanf(" %[^\n]s ",Tache[i].Description);
-    printf(" Statut : ");
-    printf("1 : TO DO \t 2: DOING \t 3: DONE\n");
-    status(i);
+    strcpy(Tache[i].Statut,s[0]);
+    printf(" Statut :%s",Tache[i].Statut);
     printf("\n DEADLINE dd/mm/yy\n");
     printf("\t\t dd : ");
     scanf("%d",&Tache[i].dd);
@@ -109,10 +79,7 @@ void status(i)
     deathlien(i);
     count+=1;
     Tache[i].Id=count;
-
     i++;
-
-
     int e ;
     printf("0:EXITE\t 1: AJOUTER NOUVELLE TACHE\t  \n");
     printf("=> ");
@@ -141,6 +108,13 @@ float AFDAY(float x){
 
    return day;
 }
+float AFheur(float y){
+    float heur , r;
+    heur = fmod(y,(int)y);
+    r =heur*24;
+
+   return r;
+}
 
 void AFFICHER(){
 
@@ -166,8 +140,8 @@ void AFFICHER(){
     printf(" \nID     :%d ",Tache[j].Id);
     float result;
     result=deathlien(j)-timenow();
-    printf("\n day => %f",AFDAY(result));
-   //printf("====> %d",rersult);
+     printf("\n heur => %f",AFheur(AFDAY(result)));
+     printf("\n day => %.0f",AFDAY(result));
      }
 }
 int main(void)
