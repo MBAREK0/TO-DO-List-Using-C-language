@@ -78,7 +78,7 @@ double timenow(){
     Tache[i].Id=count;
     i++;
     int e ;
-    printf("0:EXITE\t 1: AJOUTER NOUVELLE TACHE\t  \n");
+    printf("0:EXITE\t | 1: AJOUTER NOUVELLE TACHE\t  \n");
     printf("=> ");
     scanf("%d",&e);
     if(e==0)
@@ -269,14 +269,43 @@ void AFFICHER(){
                 printf("wrong number");AFFICHER();
     }
 }
+void Recherchertitre(){
+    char Rech[20];
+    printf("titre de tach");
+    scanf("%s",&Rech);
+    for(int j=0;j<i;j++)
+    {
+        if(strcmp(Tache[j].Titre,Rech)==0){
+
+            AFFICHERALPHA();
+        }
+    }
+}
+void Rechercherid(){
+    int idi;
+    printf("id de tach :");
+    scanf("%d",&idi);
+    for(int j=0;j<i;j++)
+    {
+        if(Tache[j].Id==idi){
+
+            AFFICHERALPHA();
+        }
+    }
+
+
+
+}
+
+
 int main(void)
 {
     MENU();
 
-  int Choss;
+  int Choose;
   printf("\n\n\t\tentre your choss : ");
-  scanf("%d",&Choss);
-  switch(Choss)
+  scanf("%d",&Choose);
+  switch(Choose)
   {
       case 0: system("exit");break;
       case 1:
@@ -284,7 +313,20 @@ int main(void)
            AJOUTER();
            break;
       case 2:system("cls");AFFICHER();break;
-  }
+      case 3:{
+          system("cls");
+          printf("1:par titre\n");
+          printf("2: par id \n");
+          int u;
+          printf("enter your choose : ");
+          scanf("%d",&u);
+          switch(u){
+               case 1:Recherchertitre();break;
+               case 2:Rechercherid();break;
+          }
+      }
+
+       }
     return (0);
 
 }
