@@ -1,5 +1,6 @@
 
 
+
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -116,7 +117,7 @@ float AFheur(float y){
    return r;
 }
 
-void AFFICHER(){
+void AFFICHERALPHA(){
 
      for(int j=0;j<i;j++)
      {
@@ -143,6 +144,81 @@ void AFFICHER(){
      printf("\n heur => %f",AFheur(AFDAY(result)));
      printf("\n day => %.0f",AFDAY(result));
      }
+}
+void AFFICHERDEADLINE(){
+
+     for(int j=0;j<i;j++)
+     {
+         for(int m=j+1;m<i;m++)
+         {
+             if(deathlien(j)-timenow()>deathlien(m)-timenow())
+             {
+                  TASK = Tache[j];
+                    Tache[j] = Tache[m];
+                    Tache[m] = TASK;
+             }
+
+         }
+     }
+     for (int j=0;j<i;j++){
+
+
+    printf("\n Titre : %s",Tache[j].Titre);
+    printf("\n Description :%s ",Tache[j].Description);
+    printf(" \nStatut :%s ",Tache[j].Statut);
+    printf(" \nID     :%d ",Tache[j].Id);
+    float result;
+    result=deathlien(j)-timenow();
+     printf("\n heur => %f",AFheur(AFDAY(result)));
+     printf("\n day => %.0f",AFDAY(result));
+     }
+}
+void AFFICHE3(){
+
+     for(int j=0;j<i;j++)
+     {
+         for(int m=j+1;m<i;m++)
+         {
+             if(deathlien(j)-timenow()>deathlien(m)-timenow())
+             {
+                  TASK = Tache[j];
+                    Tache[j] = Tache[m];
+                    Tache[m] = TASK;
+             }
+
+         }
+     }
+     for (int j=0;j<i;j++){
+
+        if((deathlien(j)-timenow())<=259200){
+            printf("\n Titre : %s",Tache[j].Titre);
+            printf("\n Description :%s ",Tache[j].Description);
+            printf(" \nStatut :%s ",Tache[j].Statut);
+            printf(" \nID     :%d ",Tache[j].Id);
+            float result;
+            result=deathlien(j)-timenow();
+            printf("\n heur => %f",AFheur(AFDAY(result)));
+            printf("\n day => %.0f",AFDAY(result));
+        }
+
+     }
+}
+void AFFICHER(){
+    printf("1:par ordre alphabétique\n");
+    printf("2: par deadline\n");
+    printf("2:Afficher les tâches dont le deadline est dans 3 jours ou moins\n");
+    int k;
+    printf("enter your choose");
+    scanf("%d",&k);
+    switch(k){
+
+        case 1:AFFICHERALPHA();break;
+        case 2:AFFICHERDEADLINE();break;
+        case 3:AFFICHE3();break;
+        default:system("cls");
+                printf("wrong number");AFFICHER();
+
+    }
 }
 int main(void)
 {
