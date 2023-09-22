@@ -128,18 +128,15 @@ void AFFICHERALPHA(){
 
          }
      }
-     for (int j=0;j<i;j++){
+     printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
+    printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
 
+    for (int j = 0; j < i; j++) {
+        float result;
+        result = deathlien(j) - timenow();
+        printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n", Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
+    }
 
-    printf("\n Titre : %s",Tache[j].Titre);
-    printf("\n Description :%s ",Tache[j].Description);
-    printf(" \nStatut :%s ",Tache[j].Statut);
-    printf(" \nID     :%d ",Tache[j].Id);
-    float result;
-    result=deathlien(j)-timenow();
-     printf("\n heur => %.0f",AFheur(AFDAY(result)));
-     printf("\n day => %.0f\n",AFDAY(result));
-     }
      int e ;
     printf(" 1: <--  \t  0:EXITE \n");
     printf("=> ");
@@ -179,12 +176,13 @@ void AFFICHERDEADLINE(){
 
     printf("\n Titre : %s",Tache[j].Titre);
     printf("\n Description :%s ",Tache[j].Description);
-    printf(" \nStatut :%s ",Tache[j].Statut);
-    printf(" \nID     :%d ",Tache[j].Id);
+    printf("\n Statut :%s ",Tache[j].Statut);
+    printf("\n ID     :%d ",Tache[j].Id);
     float result;
     result=deathlien(j)-timenow();
-     printf("\n heur => %.0f",AFheur(AFDAY(result)));
      printf("\n day => %.0f",AFDAY(result));
+     printf("\n heur => %.0f",AFheur(AFDAY(result)));
+
      }
      int e ;
     printf("  1: <--  \t 0:EXITE\t   \n");
@@ -313,7 +311,7 @@ int main(void)
            AJOUTER();
            break;
       case 2:system("cls");AFFICHER();break;
-      case 3:{
+      case 5:{
           system("cls");
           printf("1:par titre\n");
           printf("2: par id \n");
