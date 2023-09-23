@@ -121,23 +121,24 @@ float AFheur(float y)
 
     return r;
 }
-  void AF(int j){
-            float result;
-              result = deathlien(j) - timenow();
-              printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-               Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
+void AF(int j)
+{
+    float result;
+    result = deathlien(j) - timenow();
+    printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
+           Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
 
-        }
+}
 void AFFICHIER0()///////////////////////////////////:::::::::::‡‡‡‡‡‡‡‡‡‡‡‡‡‡
 {
-     printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
+    printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
     printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
 
     for (int j = 0; j <i; j++)
     {
-       AF(j);
+        AF(j);
     }
-      int e ;
+    int e ;
     printf("  1: <--  \t 0:EXITE\t   \n");
     printf("=> ");
     scanf("%d",&e);
@@ -173,7 +174,7 @@ void AFFICHERALPHA()
             }
         }
     }
-     AFFICHIER0();
+    AFFICHIER0();
 }
 void AFFICHERDEADLINE()
 {
@@ -191,7 +192,7 @@ void AFFICHERDEADLINE()
         }
     }
 
-   AFFICHIER0();
+    AFFICHIER0();
 }
 void AFFICHE3()
 {
@@ -263,9 +264,9 @@ void Search_by_Id ()
 void delete_by_id ()
 {
     int j=found_index();
-            for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
-            i--;
-          main();
+    for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
+    i--;
+    main();
 }
 int found_index()
 {
@@ -287,7 +288,7 @@ void Modifier_le_statut()
     printf("1:DOING\t2:DONE\n");
     printf("entrer your choose: ");
     scanf("%d",&ms);
-    char s[20][20]= {"DOING","DONE"};
+    char s[5][5]= {"DOING","DONE"};
     switch(ms)
     {
     case 1:
@@ -322,21 +323,18 @@ void Modifier_la_description()
 }
 void Modify()
 {
-    found_index();
     float result;
-
     found_id=found_index();
     result = deathlien(found_id) - timenow();
     printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-           Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
-           Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
+    Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
+    Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
     printf("1: Modifier_le_statut\n");
     printf("2: Modifier_le_deadline\n");
     printf("3: Modifier_la_description\n");
     int edit;
     printf("enter the task do you want to edit : ");
     scanf("%d",&edit);
-
     switch(edit)
     {
     case 1:
@@ -395,7 +393,6 @@ int Statistiques()
 int main(void)
 {
     MENU();
-
     int Choose;
     printf("\n\n\t\tentre your choss : ");
     scanf("%d",&Choose);
@@ -441,5 +438,4 @@ int main(void)
         Statistiques();
     }
     return (0);
-
 }
