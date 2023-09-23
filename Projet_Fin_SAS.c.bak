@@ -5,8 +5,8 @@
 #include<stdlib.h>
 #include<time.h>
 double second ;
-int i=0,test;
-int  count=1111;
+int i=0,test,found_id;;
+int  count=0;
 double second;
 char s[20][20]= {"TO DO","DOING","DONE"};
 int year=0,day=0,mounth=0,heuur=0,minut=0;
@@ -350,9 +350,95 @@ void suprimierid()
        for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
         i--;}
         }
-     system("cls");
      main();
 }
+int found_index()
+{
+    int Modif,copier_id;
+    printf("entrer id of tach you wanna Modifier:");
+    scanf("%d",&Modif);
+    for(int j=0; j<i; j++)
+    {
+        if(Tache[j].Id==Modif)
+        {
+            copier_id=j;
+        }
+    }
+    return copier_id;
+}
+void Modifier_le_statut()
+{
+    int ms;
+    printf("1:DOING\t2:DONE\n");
+    printf("entrer your choose: ");
+    scanf("%d",&ms);
+   char s[20][20]= {"DOING","DONE"};
+    switch(ms)
+    {
+    case 1:
+        strcpy(Tache[found_id].Statut,s[0]);
+        break;
+    case 2:
+        strcpy(Tache[found_id].Statut,s[1]);
+        break;
+    default:
+        printf("wronge number ");
+        Modifier_le_statut();
+
+    }
+}
+void Modifier_le_deadline()
+{
+    printf("\n entre the new DEADLINE dd/mm/yy\n");
+    printf("\t\t dd : ");
+    scanf("%d",&Tache[found_id].dd);
+    printf("\t\t mm : ");
+    scanf("%d",&Tache[found_id].mm);
+    printf("\t\t yy : ");
+    scanf("%d",&Tache[found_id].yy);
+    printf("\t\t heur : ");
+    scanf("%d",&Tache[found_id].heur);
+}
+void Modifier_la_description()
+{
+    printf(" Description : ");
+    scanf(" %[^\n]s ",Tache[found_id].Description);
+}
+void Modifier()
+{
+    found_index();
+    float result;
+
+    found_id=found_index();
+    result = deathlien(found_id) - timenow();
+    printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
+    Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
+    Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
+    printf("1: Modifier_le_statut\n");
+    printf("2: Modifier_le_deadline\n");
+    printf("3: Modifier_la_description\n");
+    int edit;
+    printf("enter the task do you want to edit : ");
+    scanf("%d",&edit);
+
+    switch(edit)
+    {
+    case 1:Modifier_le_statut();main();break;
+    case 2:Modifier_le_deadline();main();break;
+    case 3:Modifier_la_description();main();break;
+      default:
+        printf("wronge number ");
+        Modifier();
+
+
+    }
+
+
+
+
+
+}
+
 
 int main(void)
 {
@@ -374,7 +460,8 @@ int main(void)
         system("cls");
         AFFICHER();
         break;
-    case 4:system("cls");suprimierid();break;
+        case 3:system("cls");Modifier();break;
+    case 4:suprimierid();break;
     case 5:
     {
         system("cls");
