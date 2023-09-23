@@ -25,9 +25,9 @@ void MENU()
     printf("\n\t\t\t|_________________________________________|_________________________________________|");
     printf("\n\t\t\t| 5.Rechercher les T‚ches                 |6.Statistiques                           |");
     printf("\n\t\t\t|_________________________________________|_________________________________________|");
-    printf("\n\t\t\t|                                                                                   |");
-    printf("\n\t\t\t|                                    0. EXITE                                       |");
-    printf("\n\t\t\t|___________________________________________________________________________________|");
+    printf("\n\t\t\t|                                         |                                         |");
+    printf("\n\t\t\t|                 7. clear                |           0. EXITE                      |");
+    printf("\n\t\t\t|_________________________________________|_________________________________________|");
 }
 //=============================================================================================
 //                                                                               ZONE STRUCTE |
@@ -90,13 +90,13 @@ void AJOUTER()
     scanf("%d",&e);
     if(e==0)
     {
-        system("cls");
-        main();
+
+
 
     }
     else if(e==1)
     {
-        system("cls");
+
 
         AJOUTER();
     }
@@ -129,7 +129,11 @@ void AF(int j)
            Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
 
 }
-void AFFICHIER0()///////////////////////////////////:::::::::::‡‡‡‡‡‡‡‡‡‡‡‡‡‡
+//=============================================================================================
+//                                                                               ZONE STRUCTE |
+//=============================================================================================
+
+void AFFICHIER0()
 {
     printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
     printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
@@ -144,13 +148,13 @@ void AFFICHIER0()///////////////////////////////////:::::::::::‡‡‡‡‡‡‡‡‡‡‡‡‡‡
     scanf("%d",&e);
     if(e==0)
     {
-        system("cls");
-        main();
+
+
 
     }
     else if(e==1)
     {
-        system("cls");
+
 
         AFFICHER();
     }
@@ -235,7 +239,7 @@ void AFFICHER()
         AFFICHE3();
         break;
     default:
-        system("cls");
+
         printf("wrong number");
         AFFICHER();
     }
@@ -266,7 +270,7 @@ void delete_by_id ()
     int j=found_index();
     for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
     i--;
-    main();
+
 }
 int found_index()
 {
@@ -288,7 +292,7 @@ void Modifier_le_statut()
     printf("1:DOING\t2:DONE\n");
     printf("entrer your choose: ");
     scanf("%d",&ms);
-    char s[5][5]= {"DOING","DONE"};
+    // char s[5][5]= {"DOING","DONE"};
     switch(ms)
     {
     case 1:
@@ -327,8 +331,8 @@ void Modify()
     found_id=found_index();
     result = deathlien(found_id) - timenow();
     printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-    Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
-    Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
+           Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
+           Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
     printf("1: Modifier_le_statut\n");
     printf("2: Modifier_le_deadline\n");
     printf("3: Modifier_la_description\n");
@@ -339,15 +343,15 @@ void Modify()
     {
     case 1:
         Modifier_le_statut();
-        main();
+
         break;
     case 2:
         Modifier_le_deadline();
-        main();
+
         break;
     case 3:
         Modifier_la_description();
-        main();
+
         break;
     default:
         printf("wronge number ");
@@ -389,54 +393,59 @@ int Statistiques()
     break;
     }
 }
-
+//////////////////////
 int main(void)
 {
-    MENU();
 
     int Choose;
-    printf("\n\n\t\tentre your choss : ");
-    scanf("%d",&Choose);
-    switch(Choose)
+    do
     {
-    case 0:
-        return 0;
-        break;
-    case 1:
-        system("cls");
-        AJOUTER();
-        break;
-    case 2:
-        system("cls");
-        AFFICHER();
-        break;
-    case 3:
-        system("cls");
-        Modify();
-        break;
-    case 4:
-        delete_by_id ();
-        break;
-    case 5:
-    {
-        system("cls");
-        printf("1: par titre\n\n");
-        printf("2: par id \n");
-        int Choose1;
-        printf("enter your choose : ");
-        scanf("%d",&Choose1);
-        switch(Choose1)
+        MENU();
+        printf("\n\n\t\tentre your choss : ");
+        scanf("%d",&Choose);
+        switch(Choose)
         {
         case 1:
-            Search_by_Title ();
+
+            AJOUTER();
             break;
         case 2:
-            Search_by_Id ();
+
+            AFFICHER();
+            break;
+        case 3:
+
+            Modify();
+            break;
+        case 4:
+            delete_by_id ();
+            break;
+        case 5:
+        {
+
+            printf("1: par titre\n\n");
+            printf("2: par id \n");
+            int Choose1;
+            printf("enter your choose : ");
+            scanf("%d",&Choose1);
+            switch(Choose1)
+            {
+            case 1:
+                Search_by_Title ();
+                break;
+            case 2:
+                Search_by_Id ();
+                break;
+            }
+        }
+        case 6:
+            Statistiques();
+            break;
+        case 7:
+            system("cls");
             break;
         }
     }
-    case 6:
-        Statistiques();
-    }
+    while(Choose!=0);
     return (0);
 }
