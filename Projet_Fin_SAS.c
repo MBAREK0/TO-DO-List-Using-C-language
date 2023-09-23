@@ -7,16 +7,17 @@
 double second ;
 int i=0,test,found_id;;
 int  count=0;
+int count_done=0;
 double second;
 char s[20][20]= {"TO DO","DOING","DONE"};
 int year=0,day=0,mounth=0,heuur=0,minut=0;
 void MENU()
 {
-     printf("\n\t\t\t\t\t\t  M   M  EEEEE  N   N  U   U");
-     printf("\n\t\t\t\t\t\t  MM MM  E      NN  N  U   U");
-     printf("\n\t\t\t\t\t\t  M M M  EEEE   N N N  U   U");
-     printf("\n\t\t\t\t\t\t  M   M  E      N  NN  U   U");
-     printf("\n\t\t\t\t\t\t  M   M  EEEEE  N   N   UUU ");
+    printf("\n\t\t\t\t\t\t  M   M  EEEEE  N   N  U   U");
+    printf("\n\t\t\t\t\t\t  MM MM  E      NN  N  U   U");
+    printf("\n\t\t\t\t\t\t  M M M  EEEE   N N N  U   U");
+    printf("\n\t\t\t\t\t\t  M   M  E      N  NN  U   U");
+    printf("\n\t\t\t\t\t\t  M   M  EEEEE  N   N   UUU ");
     printf("\n\t\t\t ___________________________________________________________________________________ ");
     printf("\n\t\t\t| 1.Ajouter une nouvelle tache            |2.Afficher la liste de toutes les t‚ches |");
     printf("\n\t\t\t|_________________________________________|_________________________________________|");
@@ -28,44 +29,42 @@ void MENU()
     printf("\n\t\t\t|                                    0. EXITE                                       |");
     printf("\n\t\t\t|___________________________________________________________________________________|");
 }
+//=============================================================================================
+//                                                                               ZONE STRUCTE |
+//=============================================================================================
 typedef struct
 {
     char Titre[50];
     char Description[250];
     char Statut[20];
     int  Id;
-    struct DEADLINE
-    {
-        int yy,mm,dd,heur;
-    };
+    int yy,mm,dd,heur;
+
 } NOUVELLE_TACHE;
 NOUVELLE_TACHE Tache[100];
 NOUVELLE_TACHE TASK;
+//=============================================================================================
+//                                                                               ZONE deathlien |
+//=============================================================================================
 
 
-/////////////////////////////////////////////deathlien
 double  deathlien(i)
 {
 
-    second=(Tache[i].heur)*3600+(Tache[i].dd-16)*24*3600+(Tache[i].mm)*30*24*3600+(Tache[i].yy-1970)*365*24*3600;
+    second=(Tache[i].heur)*3600+(Tache[i].dd-15)*24*3600+(Tache[i].mm)*30*24*3600+(Tache[i].yy-1970)*365*24*3600;
     return second;
 }
 double timenow()
 {
-    time_t current_time;
-    time(&current_time);
-
-    // printf("Current time in seconds since epoch: %ld\n", current_time);
-    int now = current_time;
-
-    return now;
-
+    time_t current_time =time(NULL);
+    return current_time;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//=============================================================================================
+//                                                                               ZONE STRUCTE |
+//=============================================================================================
 
 void AJOUTER()
 {
-
     printf("\n Titre : ");
     scanf(" %[^\n]s ",Tache[i].Titre);
     printf(" Description : ");
@@ -122,6 +121,42 @@ float AFheur(float y)
 
     return r;
 }
+  void AF(int j){
+            float result;
+              result = deathlien(j) - timenow();
+              printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
+               Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
+
+        }
+void AFFICHIER0()///////////////////////////////////:::::::::::‡‡‡‡‡‡‡‡‡‡‡‡‡‡
+{
+     printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
+    printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
+
+    for (int j = 0; j <i; j++)
+    {
+       AF(j);
+    }
+      int e ;
+    printf("  1: <--  \t 0:EXITE\t   \n");
+    printf("=> ");
+    scanf("%d",&e);
+    if(e==0)
+    {
+        system("cls");
+        main();
+
+    }
+    else if(e==1)
+    {
+        system("cls");
+
+        AFFICHER();
+    }
+    else
+        printf("wrong numbre");
+}
+
 
 void AFFICHERALPHA()
 {
@@ -136,38 +171,9 @@ void AFFICHERALPHA()
                 Tache[j] = Tache[m];
                 Tache[m] = TASK;
             }
-
         }
     }
-    printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
-    printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
-
-    for (int j = 0; j < i; j++)
-    {
-        float result;
-        result = deathlien(j) - timenow();
-        printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-        Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
-    }
-
-    int e ;
-    printf(" 1: <--  \t  0:EXITE \n");
-    printf("=> ");
-    scanf("%d",&e);
-    if(e==0)
-    {
-        system("cls");
-        main();
-
-    }
-    else if(e==1)
-    {
-        system("cls");
-
-        AFFICHER();
-    }
-    else
-        printf("wrong numbre");
+     AFFICHIER0();
 }
 void AFFICHERDEADLINE()
 {
@@ -182,45 +188,13 @@ void AFFICHERDEADLINE()
                 Tache[j] = Tache[m];
                 Tache[m] = TASK;
             }
-
         }
     }
-    for (int j=0; j<i; j++)
-    {
 
-
-        printf("\n Titre : %s",Tache[j].Titre);
-        printf("\n Description :%s ",Tache[j].Description);
-        printf("\n Statut :%s ",Tache[j].Statut);
-        printf("\n ID     :%d ",Tache[j].Id);
-        float result;
-        result=deathlien(j)-timenow();
-        printf("\n day => %.0f",AFDAY(result));
-        printf("\n heur => %.0f",AFheur(AFDAY(result)));
-
-    }
-    int e ;
-    printf("  1: <--  \t 0:EXITE\t   \n");
-    printf("=> ");
-    scanf("%d",&e);
-    if(e==0)
-    {
-        system("cls");
-        main();
-
-    }
-    else if(e==1)
-    {
-        system("cls");
-
-        AFFICHER();
-    }
-    else
-        printf("wrong numbre");
+   AFFICHIER0();
 }
 void AFFICHE3()
 {
-
     for(int j=0; j<i; j++)
     {
         for(int m=j+1; m<i; m++)
@@ -231,43 +205,13 @@ void AFFICHE3()
                 Tache[j] = Tache[m];
                 Tache[m] = TASK;
             }
-
         }
     }
     for (int j=0; j<i; j++)
     {
-
-        if((deathlien(j)-timenow())<=259200)
-        {
-            printf("\n Titre : %s",Tache[j].Titre);
-            printf("\n Description :%s ",Tache[j].Description);
-            printf(" \nStatut :%s ",Tache[j].Statut);
-            printf(" \nID     :%d ",Tache[j].Id);
-            float result;
-            result=deathlien(j)-timenow();
-            printf("\n heur => %.0f",AFheur(AFDAY(result)));
-            printf("\n day => %.0f",AFDAY(result));
-        }
-
+        if((deathlien(j)-timenow())<=259200)AF(j);
     }
-    int e ;
-    printf("  1: <--  \t 0:EXITE\t   \n");
-    printf("=> ");
-    scanf("%d",&e);
-    if(e==0)
-    {
-        system("cls");
-        main();
 
-    }
-    else if(e==1)
-    {
-        system("cls");
-
-        AFFICHER();
-    }
-    else
-        printf("wrong numbre");
 }
 void AFFICHER()
 {
@@ -295,62 +239,33 @@ void AFFICHER()
         AFFICHER();
     }
 }
-void Recherchertitre()
+void Search_by_Title ()
 {
     char Rech[20];
     printf("titre de tach");
     scanf("%s",&Rech);
     for(int j=0; j<i; j++)
     {
-        if(strcmp(Tache[j].Titre,Rech)==0)
-        {
+        if(strcmp(Tache[j].Titre,Rech)==0)AF(j);
 
-             printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
-             printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
-             float result;
-            result = deathlien(j) - timenow();
-            printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-            Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
-
-        }
     }
-
 }
-void Rechercherid()
+void Search_by_Id ()
 {
     int idi;
     printf("id de tach :");
     scanf("%d",&idi);
     for(int j=0; j<i; j++)
     {
-        if(Tache[j].Id==idi)
-        {
-
-             printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
-             printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
-             float result;
-            result = deathlien(j) - timenow();
-            printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-            Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
-
-        }
+        if(Tache[j].Id==idi) AF(j);
     }
-
-
-
 }
-void suprimierid()
+void delete_by_id ()
 {
-    int suprimier;
-    printf("id de tach you wanna suprimier :");
-    scanf("%d",&suprimier);
-    for(int j=0; j<i; j++)
-        {
-        if(Tache[j].Id==suprimier){
-       for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
-        i--;}
-        }
-     main();
+    int j=found_index();
+            for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
+            i--;
+          main();
 }
 int found_index()
 {
@@ -372,7 +287,7 @@ void Modifier_le_statut()
     printf("1:DOING\t2:DONE\n");
     printf("entrer your choose: ");
     scanf("%d",&ms);
-   char s[20][20]= {"DOING","DONE"};
+    char s[20][20]= {"DOING","DONE"};
     switch(ms)
     {
     case 1:
@@ -380,6 +295,7 @@ void Modifier_le_statut()
         break;
     case 2:
         strcpy(Tache[found_id].Statut,s[1]);
+        count_done++;
         break;
     default:
         printf("wronge number ");
@@ -404,16 +320,16 @@ void Modifier_la_description()
     printf(" Description : ");
     scanf(" %[^\n]s ",Tache[found_id].Description);
 }
-void Modifier()
+void Modify()
 {
-
+    found_index();
     float result;
 
     found_id=found_index();
     result = deathlien(found_id) - timenow();
     printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-    Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
-    Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
+           Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
+           Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
     printf("1: Modifier_le_statut\n");
     printf("2: Modifier_le_deadline\n");
     printf("3: Modifier_la_description\n");
@@ -423,22 +339,58 @@ void Modifier()
 
     switch(edit)
     {
-    case 1:Modifier_le_statut();system("cls");main();break;
-    case 2:Modifier_le_deadline();system("cls");main();break;
-    case 3:Modifier_la_description();system("cls");main();break;
-      default:
+    case 1:
+        Modifier_le_statut();
+        main();
+        break;
+    case 2:
+        Modifier_le_deadline();
+        main();
+        break;
+    case 3:
+        Modifier_la_description();
+        main();
+        break;
+    default:
         printf("wronge number ");
-        Modifier();
+        Modify();
 
 
     }
-
-
-
-
-
 }
 
+int Statistiques()
+{
+    int Stat;
+    printf("1:le nombre total des t‚ches esAfficher le nombre total des t‚ches.\n");
+    printf("2:Afficher le nombre de t‚ches complËtes.\n");
+    printf("3:Afficher le nombre de t‚ches incomplËtes.\n");
+    printf("4:Afficher le nombre de jours restants jusqu'au dÈlai de chaque t‚che.\n");
+
+
+    printf("enter your choose :");
+    scanf("%d",&Stat);
+    switch(Stat)
+    {
+    case 1:
+        printf("le nombre total des t‚ches est : %d",i);
+        break;
+    case 2:
+        printf("le nombre de taches completes est : %d",count_done);
+        break;
+    case 3:
+        printf("le nombre de taches incompletes est : %d",i-count_done);
+        break;
+    case 4:
+    {
+        printf("| %-10s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Heur", "Day");
+        printf("|------------|------------|--------|--------|\n");
+
+        AFFICHIER0();
+    }
+    break;
+    }
+}
 
 int main(void)
 {
@@ -450,7 +402,7 @@ int main(void)
     switch(Choose)
     {
     case 0:
-        system("exit");
+        return 0;
         break;
     case 1:
         system("cls");
@@ -460,27 +412,33 @@ int main(void)
         system("cls");
         AFFICHER();
         break;
-        case 3:system("cls");Modifier();break;
-    case 4:suprimierid();break;
+    case 3:
+        system("cls");
+        Modify();
+        break;
+    case 4:
+        delete_by_id ();
+        break;
     case 5:
     {
         system("cls");
-        printf("1:par titre\n");
+        printf("1: par titre\n\n");
         printf("2: par id \n");
-        int u;
+        int Choose1;
         printf("enter your choose : ");
-        scanf("%d",&u);
-        switch(u)
+        scanf("%d",&Choose1);
+        switch(Choose1)
         {
         case 1:
-            Recherchertitre();
+            Search_by_Title ();
             break;
         case 2:
-            Rechercherid();
+            Search_by_Id ();
             break;
         }
     }
-
+    case 6:
+        Statistiques();
     }
     return (0);
 
