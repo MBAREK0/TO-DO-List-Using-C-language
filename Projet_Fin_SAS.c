@@ -1,27 +1,32 @@
 
+
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
 double second ;
-int i=0;
+int i=0,test;
 int  count=1111;
 double second;
 char s[20][20]= {"TO DO","DOING","DONE"};
 int year=0,day=0,mounth=0,heuur=0,minut=0;
 void MENU()
 {
-
-    printf("\n\t\t\t __________________________________________________________________________________ ");
-    printf("\n\t\t\t|                         1.Ajouter une nouvelle tache                             |");
-    printf("\n\t\t\t|__________________________________________________________________________________|");
-    printf("\n\t\t\t|2.Afficher la liste de toutes les tâches |     3. Modifier une tâche              |");
-    printf("\n\t\t\t|_________________________________________|________________________________________|");
-    printf("\n\t\t\t|4.Supprimer une tâche par identifiant    |     5. Rechercher les Tâches           |");
-    printf("\n\t\t\t|_________________________________________|________________________________________|");
-    printf("\n\t\t\t|                                                                                  |");
-    printf("\n\t\t\t|                                    0. EXITE                                      |");
-    printf("\n\t\t\t|__________________________________________________________________________________|");
+     printf("\n\t\t\t\t\t\t  M   M  EEEEE  N   N  U   U");
+     printf("\n\t\t\t\t\t\t  MM MM  E      NN  N  U   U");
+     printf("\n\t\t\t\t\t\t  M M M  EEEE   N N N  U   U");
+     printf("\n\t\t\t\t\t\t  M   M  E      N  NN  U   U");
+     printf("\n\t\t\t\t\t\t  M   M  EEEEE  N   N   UUU ");
+    printf("\n\t\t\t ___________________________________________________________________________________ ");
+    printf("\n\t\t\t| 1.Ajouter une nouvelle tache            |2.Afficher la liste de toutes les tâches |");
+    printf("\n\t\t\t|_________________________________________|_________________________________________|");
+    printf("\n\t\t\t| 3.Modifier une tâche                    |4.Supprimer une tâche par identifiant    |");
+    printf("\n\t\t\t|_________________________________________|_________________________________________|");
+    printf("\n\t\t\t| 5.Rechercher les Tâches                 |6.Statistiques                           |");
+    printf("\n\t\t\t|_________________________________________|_________________________________________|");
+    printf("\n\t\t\t|                                                                                   |");
+    printf("\n\t\t\t|                                    0. EXITE                                       |");
+    printf("\n\t\t\t|___________________________________________________________________________________|");
 }
 typedef struct
 {
@@ -300,9 +305,16 @@ void Recherchertitre()
         if(strcmp(Tache[j].Titre,Rech)==0)
         {
 
-            AFFICHERALPHA();
+             printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
+             printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
+             float result;
+            result = deathlien(j) - timenow();
+            printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
+            Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
+
         }
     }
+
 }
 void Rechercherid()
 {
@@ -314,14 +326,33 @@ void Rechercherid()
         if(Tache[j].Id==idi)
         {
 
-            AFFICHERALPHA();
+             printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
+             printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
+             float result;
+            result = deathlien(j) - timenow();
+            printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
+            Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
+
         }
     }
 
 
 
 }
-
+void suprimierid()
+{
+    int suprimier;
+    printf("id de tach you wanna suprimier :");
+    scanf("%d",&suprimier);
+    for(int j=0; j<i; j++)
+        {
+        if(Tache[j].Id==suprimier){
+       for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
+        i--;}
+        }
+     system("cls");
+     main();
+}
 
 int main(void)
 {
@@ -343,6 +374,7 @@ int main(void)
         system("cls");
         AFFICHER();
         break;
+    case 4:system("cls");suprimierid();break;
     case 5:
     {
         system("cls");
