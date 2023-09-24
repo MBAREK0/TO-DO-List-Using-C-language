@@ -427,27 +427,33 @@ int main(void)
 {
 
     int Choose;
-    do
-    {
+
         MENU();
         printf("\n\n\t\tentre your choss : ");
         scanf("%d",&Choose);
         switch(Choose)
         {
+        case 0:
+            return 0;
+            break;
         case 1:
 
             AJOUTER();
+            main();
             break;
         case 2:
 
             AFFICHER_Mom();
+            main();
             break;
         case 3:
 
             Modify();
+            main();
             break;
         case 4:
             delete_by_id();
+            main();
             break;
         case 5:
         {
@@ -466,15 +472,17 @@ int main(void)
                 break;
             }
         }
+        main();
         break;
         case 6:
             Statistiques();
+            main();
             break;
         case 7:
             system("cls");
+            main();
             break;
         }
-    }
-    while(Choose!=0);
+
     return (0);
 }

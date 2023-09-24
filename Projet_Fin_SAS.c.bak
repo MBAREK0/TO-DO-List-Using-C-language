@@ -404,13 +404,16 @@ int Statistiques()
         break;
     case 4:
     {
-        float result;
-        result = Change_date_to_seconds(i) - timenow();
         printf("|----------------------|--------|--------|\n");
         printf("| %-20s | %-6s | %-6s |\n", "Titre", "Day", "Hour");
         printf("|----------------------|--------|--------|\n");
-        printf("| %-20s | %-6.0f | %-6.0f |\n", Tache[i].Titre, AFDAY(result), AFheur(AFDAY(result)));
-        printf("|----------------------|--------|--------|\n");
+        for(int j = 0; j<i; j++)
+        {
+            float result;
+            result = Change_date_to_seconds(j) - timenow();
+            printf("| %-20s | %-6.0f | %-6.0f |\n", Tache[j].Titre, AFDAY(result), AFheur(AFDAY(result)));
+            printf("|----------------------|--------|--------|\n");
+        }
 
     }
     break;
@@ -468,7 +471,7 @@ int main(void)
             Statistiques();
             break;
         case 7:
-            system("cls");
+            system("cls");main();
             break;
         }
     }
