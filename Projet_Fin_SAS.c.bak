@@ -10,7 +10,7 @@
 double second ;
 short int i=0, found_id, count=0, count_done=0,
           year=0,day=0,mounth=0,heuur=0,minut=0;
-char s[2][10]= {"TO DO","DOING","DONE"};
+char s[3][10]= {"TO DO","DOING","DONE"};
 //=============================================================================================
 //                                                                                  menu ZONE  |
 //=============================================================================================
@@ -60,13 +60,13 @@ double timenow()
     time_t current_time =time(NULL);
     return current_time;
 }
-float AFDAY(float x)  // change secons to days
+float AFDAY(float x)  //-------------------------------------------------- change secons to days
 {
     float day;
     day = x/60/60/24;
     return day;
 }
-float AFheur(float y) //change secons to hour
+float AFheur(float y) //---------------------------------------------------change secons to hour
 {
     float heur;
     heur =(int)(fmod(y,(int)y)*24);
@@ -108,7 +108,7 @@ void AJOUTER()
 //=============================================================================================
 //                                                                               Display ZONE  |
 //=============================================================================================
-void AF(int j)         // Display the informatiion of one task
+void AF(int j)         // ----------------------------------Display the informatiion of one task
 {
     float result;
     result = Change_date_to_seconds(j) - timenow();
@@ -117,7 +117,7 @@ void AF(int j)         // Display the informatiion of one task
            AFDAY(result), AFheur(AFDAY(result)));
 }
 
-void AFFICHIER0()   // Display the informatiion of tasks
+void AFFICHIER0()   // ---------------------------------------Display the informatiion of tasks
 {
     printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut","Day","Heur");
     printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
@@ -133,7 +133,7 @@ void AFFICHIER0()   // Display the informatiion of tasks
     scanf("%d",&Choose1);
     if(Choose1==1)AFFICHER_Mom();
 }
-void AFFICHERALPHA() // Display the informatiion of tasks by alpha ordre
+void AFFICHERALPHA() //-------------------------- Display the informatiion of tasks by alpha ordre
 {
 
     for(int j=0; j<i; j++)
@@ -150,7 +150,7 @@ void AFFICHERALPHA() // Display the informatiion of tasks by alpha ordre
     }
     AFFICHIER0();
 }
-void AFFICHER_DEADLINE()  // Display tasks with a deadline of 3 days or less
+void AFFICHER_DEADLINE()  // ----------------------Display tasks with a deadline of 3 days or less
 {
 
     for(int j=0; j<i; j++)
@@ -189,7 +189,7 @@ void AFFICHE_3_day_or_less()
 
     for (int j=0; j<i; j++)
     {
-        if((Change_date_to_seconds(j)-timenow())<=259200) // 3 days in seconds is 259200
+        if((Change_date_to_seconds(j)-timenow())<=259200) //------- 3 days in seconds is 259200
         {
             AF(j);
             test++;
@@ -205,7 +205,7 @@ void AFFICHE_3_day_or_less()
     if(Choose1==1)AFFICHER_Mom();
 
 }
-void AFFICHER_Mom() // main display function
+void AFFICHER_Mom() // ---------------------------------------------main display function
 {
     printf("\n\t\t1: in alphabetical order\n");
     printf("\t\t2: by deadline\n");
@@ -234,7 +234,7 @@ void AFFICHER_Mom() // main display function
 //=============================================================================================
 //                                                                                Search ZONE  |
 //=============================================================================================
-char* to_upper(char* str) // change the title to uppercase
+char* to_upper(char* str) //------------------------------------- change the title to uppercase
 {
     int length = strlen(str);
     for (int i = 0; i < length; i++)
@@ -279,7 +279,7 @@ void Search_by_Id ()
 //=============================================================================================
 //                                                                                delete ZONE  |
 //=============================================================================================
-int found_index() // find the index of task to use it in defrance fonctions
+int found_index() //-------------------- find the index of task to use it in defrance fonctions
 {
 
     int Modif,copier_id;
@@ -427,27 +427,33 @@ int main(void)
 {
 
     int Choose;
-    do
-    {
+
         MENU();
         printf("\n\n\t\tentre your choss : ");
         scanf("%d",&Choose);
         switch(Choose)
         {
+        case 0:
+            return 0;
+            break;
         case 1:
 
             AJOUTER();
+            main();
             break;
         case 2:
 
             AFFICHER_Mom();
+            main();
             break;
         case 3:
 
             Modify();
+            main();
             break;
         case 4:
             delete_by_id();
+            main();
             break;
         case 5:
         {
@@ -466,15 +472,17 @@ int main(void)
                 break;
             }
         }
+        main();
         break;
         case 6:
             Statistiques();
+            main();
             break;
         case 7:
-            system("cls");main();
+            system("cls");
+            main();
             break;
         }
-    }
-    while(Choose!=0);
+
     return (0);
 }
