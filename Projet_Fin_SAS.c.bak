@@ -4,13 +4,16 @@
 #include<string.h>
 #include<stdlib.h>
 #include<time.h>
+//=============================================================================================
+//                                                                             variables ZONE  |
+//=============================================================================================
 double second ;
-int i=0,test,found_id;;
-int  count=0;
-int count_done=0;
-double second;
+short int i=0, found_id, count=0, count_done=0,
+          year=0,day=0,mounth=0,heuur=0,minut=0;
 char s[20][20]= {"TO DO","DOING","DONE"};
-int year=0,day=0,mounth=0,heuur=0,minut=0;
+//=============================================================================================
+//                                                                                  menu ZONE  |
+//=============================================================================================
 void MENU()
 {
     printf("\n\t\t\t\t\t\t  M   M  EEEEE  N   N  U   U");
@@ -30,28 +33,25 @@ void MENU()
     printf("\n\t\t\t|_________________________________________|_________________________________________|");
 }
 //=============================================================================================
-//                                                                               ZONE STRUCTE |
+//                                                                               STRUCTE ZONE  |
 //=============================================================================================
 typedef struct
 {
     char Titre[50];
     char Description[250];
     char Statut[20];
-    int  Id;
-    int yy,mm,dd,heur;
-
+    int  Id,
+         yy,mm,dd,heur;
 } NOUVELLE_TACHE;
 NOUVELLE_TACHE Tache[100];
 NOUVELLE_TACHE TASK;
 //=============================================================================================
-//                                                                               ZONE deathlien |
+//                                                                              deadline ZONE  |
 //=============================================================================================
-
-
-double  deathlien(i)
+double  Change_date_to_seconds(i)
 {
-
-    second=(Tache[i].heur)*3600+(Tache[i].dd-15)*24*3600+(Tache[i].mm)*30*24*3600+(Tache[i].yy-1970)*365*24*3600;
+    second=(Tache[i].heur)*3600+(Tache[i].dd-15)*24*3600
+           +(Tache[i].mm)*30*24*3600+(Tache[i].yy-1970)*365*24*3600;
     return second;
 }
 double timenow()
@@ -59,110 +59,76 @@ double timenow()
     time_t current_time =time(NULL);
     return current_time;
 }
-//=============================================================================================
-//                                                                               ZONE STRUCTE |
-//=============================================================================================
-
-void AJOUTER()
-{
-    printf("\n Titre : ");
-    scanf(" %[^\n]s ",Tache[i].Titre);
-    printf(" Description : ");
-    scanf(" %[^\n]s ",Tache[i].Description);
-    strcpy(Tache[i].Statut,s[0]);
-    printf(" Statut :%s",Tache[i].Statut);
-    printf("\n DEADLINE dd/mm/yy\n");
-    printf("\t\t dd : ");
-    scanf("%d",&Tache[i].dd);
-    printf("\t\t mm : ");
-    scanf("%d",&Tache[i].mm);
-    printf("\t\t yy : ");
-    scanf("%d",&Tache[i].yy);
-    printf("\t\t heur : ");
-    scanf("%d",&Tache[i].heur);
-    deathlien(i);
-    count+=1;
-    Tache[i].Id=count;
-    i++;
-    int e ;
-    printf("0:EXITE\t | 1: AJOUTER NOUVELLE TACHE\t  \n");
-    printf("=> ");
-    scanf("%d",&e);
-    if(e==0)
-    {
-
-
-
-    }
-    else if(e==1)
-    {
-
-
-        AJOUTER();
-    }
-    else
-        printf("wrong numbre");
-
-}
-///////////////////////////////////
 float AFDAY(float x)
 {
     float day;
-
     day = x/60/60/24;
-
     return day;
 }
 float AFheur(float y)
 {
-    float heur, r;
-    heur = fmod(y,(int)y);
-    r =(int)heur*24;
-
-    return r;
+    float heur;
+    heur =(int)(fmod(y,(int)y)*24);
+    return heur;
 }
+//=============================================================================================
+//                                                                               AJOUTER ZONE  |
+//=============================================================================================
+
+void AJOUTER()
+{
+    printf("\n\n\t Titre : ");
+    scanf(" %[^\n]s ",Tache[i].Titre);
+    printf("\n\t Description : ");
+    scanf(" %[^\n]s ",Tache[i].Description);
+    strcpy(Tache[i].Statut,s[0]);
+    printf("\n\t Statut :%s",Tache[i].Statut);
+    printf("\n\tDEADLINE dd/mm/yy\n");
+    printf("\n\t\t\t dd : ");
+    scanf("%d",&Tache[i].dd);
+    printf("\n\t\t\t mm : ");
+    scanf("%d",&Tache[i].mm);
+    printf("\n\t\t\t yy : ");
+    scanf("%d",&Tache[i].yy);
+    printf("\n\t\t\t heur : ");
+    scanf("%d",&Tache[i].heur);
+    Change_date_to_seconds(i);
+    count+=1;
+    Tache[i].Id=count;
+    i++;
+    int Choose1 ;
+    printf("\n\n\t\t0:EXITE\t  |  1: NEW TASK\t  \n");
+    printf("=> ");
+    scanf("%d",&Choose1);
+    if(Choose1==1) AJOUTER();
+}
+//=============================================================================================
+//                                                                             AFFICHIER ZONE  |
+//=============================================================================================
 void AF(int j)
 {
     float result;
-    result = deathlien(j) - timenow();
+    result = Change_date_to_seconds(j) - timenow();
     printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
-           Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut, AFheur(AFDAY(result)), AFDAY(result));
-
+           Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut,
+           AFDAY(result), AFheur(AFDAY(result)));
 }
-//=============================================================================================
-//                                                                               ZONE STRUCTE |
-//=============================================================================================
 
 void AFFICHIER0()
 {
-    printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut", "Heur", "Day");
+    printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut","Day","Heur");
     printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
 
     for (int j = 0; j <i; j++)
     {
         AF(j);
     }
-    int e ;
-    printf("  1: <--  \t 0:EXITE\t   \n");
+    int Choose1 ;
+    printf("\n\t  1: <--  \t 0:EXITE\t   \n");
     printf("=> ");
-    scanf("%d",&e);
-    if(e==0)
-    {
-
-
-
-    }
-    else if(e==1)
-    {
-
-
-        AFFICHER();
-    }
-    else
-        printf("wrong numbre");
+    scanf("%d",&Choose1);
+    if(Choose1==1)AFFICHER_Mom();
 }
-
-
 void AFFICHERALPHA()
 {
 
@@ -180,14 +146,14 @@ void AFFICHERALPHA()
     }
     AFFICHIER0();
 }
-void AFFICHERDEADLINE()
+void AFFICHER_DEADLINE()
 {
 
     for(int j=0; j<i; j++)
     {
         for(int m=j+1; m<i; m++)
         {
-            if(deathlien(j)-timenow()>deathlien(m)-timenow())
+            if(Change_date_to_seconds(j)-timenow()>Change_date_to_seconds(m)-timenow())
             {
                 TASK = Tache[j];
                 Tache[j] = Tache[m];
@@ -198,13 +164,13 @@ void AFFICHERDEADLINE()
 
     AFFICHIER0();
 }
-void AFFICHE3()
+void AFFICHE_3_day_or_less()
 {
     for(int j=0; j<i; j++)
     {
         for(int m=j+1; m<i; m++)
         {
-            if(deathlien(j)-timenow()>deathlien(m)-timenow())
+            if(Change_date_to_seconds(j)-timenow()>Change_date_to_seconds(m)-timenow())
             {
                 TASK = Tache[j];
                 Tache[j] = Tache[m];
@@ -212,70 +178,87 @@ void AFFICHE3()
             }
         }
     }
+    int test =0;
     for (int j=0; j<i; j++)
     {
-        if((deathlien(j)-timenow())<=259200)AF(j);
+        if((Change_date_to_seconds(j)-timenow())<=259200)
+        {
+            AF(j);
+            test++;
+        }
+
     }
+    if(test==0)printf("\n\t\t NO_THING!\n");
 
 }
-void AFFICHER()
+void AFFICHER_Mom()
 {
-    printf("1:par ordre alphabétique\n");
-    printf("2: par deadline\n");
-    printf("3:Afficher les tâches dont le deadline est dans 3 jours ou moins\n");
-    int k;
+    printf("\n\t\t1: in alphabetical order\n");
+    printf("\t\t2: by deadline\n");
+    printf("\t\t3: Display tasks with a deadline of 3 days or less\n");
+
+    int Choose1;
     printf("enter your choose");
-    scanf("%d",&k);
-    switch(k)
+    scanf("%d",&Choose1);
+    switch(Choose1)
     {
 
     case 1:
         AFFICHERALPHA();
         break;
     case 2:
-        AFFICHERDEADLINE();
+        AFFICHER_DEADLINE();
         break;
     case 3:
-        AFFICHE3();
+        AFFICHE_3_day_or_less();
         break;
     default:
 
         printf("wrong number");
-        AFFICHER();
+        AFFICHER_Mom();
     }
+}
+//=============================================================================================
+//                                                                               ZONE Search |
+//=============================================================================================
+
+char* to_upper(char* str)
+{
+    int length = strlen(str);
+    for (int i = 0; i < length; i++)
+    {
+        str[i] = toupper(str[i]);
+    }
+    return str;
 }
 void Search_by_Title ()
 {
-    char Rech[20];
-    printf("titre de tach");
-    scanf("%s",&Rech);
+    char Choose1[20];
+    printf("\n\n\t\tENTER THE TASK TITLE : ");
+    scanf("%s",&Choose1);
     for(int j=0; j<i; j++)
     {
-        if(strcmp(Tache[j].Titre,Rech)==0)AF(j);
-
+        if(strcmp(to_upper(Tache[j].Titre),to_upper(Choose1))==0) AF(j) ;
     }
 }
 void Search_by_Id ()
 {
-    int idi;
-    printf("id de tach :");
-    scanf("%d",&idi);
+    int Choose1;
+    printf("ENTER THE ID OF THE TASK : ");
+    scanf("%d",&Choose1);
     for(int j=0; j<i; j++)
     {
-        if(Tache[j].Id==idi) AF(j);
+        if(Tache[j].Id==Choose1) AF(j);
     }
 }
-void delete_by_id ()
-{
-    int j=found_index();
-    for(int m=j; j<i; j++)Tache[m] = Tache[m+1];
-    i--;
-
-}
+//=============================================================================================
+//                                                                                delete ZONE  |
+//=============================================================================================
 int found_index()
 {
+
     int Modif,copier_id;
-    printf("entrer id of tach you wanna Modifier:");
+    printf("Enter the ID of the task you want to Modify or Delete: ");
     scanf("%d",&Modif);
     for(int j=0; j<i; j++)
     {
@@ -286,14 +269,24 @@ int found_index()
     }
     return copier_id;
 }
+void delete_by_id ()
+{
+    int j=found_index();
+    for(int m=j; m<i; m++)Tache[m] = Tache[m+1];
+    i--;
+}
+
+//=============================================================================================
+//                                                                              Modifier ZONE  |
+//=============================================================================================
+
 void Modifier_le_statut()
 {
-    int ms;
-    printf("1:DOING\t2:DONE\n");
-    printf("entrer your choose: ");
-    scanf("%d",&ms);
-    // char s[5][5]= {"DOING","DONE"};
-    switch(ms)
+    int Choose1;
+    printf("\n\t\t1:DOING\n2:DONE\n");
+    printf("enter your choose: ");
+    scanf("%d",&Choose1);
+    switch(Choose1)
     {
     case 1:
         strcpy(Tache[found_id].Statut,s[0]);
@@ -329,17 +322,17 @@ void Modify()
 {
     float result;
     found_id=found_index();
-    result = deathlien(found_id) - timenow();
+    result = Change_date_to_seconds(found_id) - timenow();
     printf("| %-10d | %-20s | %-20s | %-10s | %-6.0f | %-6.0f |\n",
            Tache[found_id].Id, Tache[found_id].Titre, Tache[found_id].Description,
            Tache[found_id].Statut, AFheur(AFDAY(result)), AFDAY(result));
-    printf("1: Modifier_le_statut\n");
-    printf("2: Modifier_le_deadline\n");
-    printf("3: Modifier_la_description\n");
-    int edit;
-    printf("enter the task do you want to edit : ");
-    scanf("%d",&edit);
-    switch(edit)
+    printf("1: Modify the status\n");
+    printf("2: Modify the deadline\n");
+    printf("3: Modify the description\n");
+    int Choose1;
+    printf("enter the task do you want to modify : ");
+    scanf("%d",&Choose1);
+    switch(Choose1)
     {
     case 1:
         Modifier_le_statut();
@@ -354,12 +347,14 @@ void Modify()
 
         break;
     default:
-        printf("wronge number ");
-        Modify();
-
-
+        printf("wrong number ");
+        Modify();break;
     }
 }
+//=============================================================================================
+//                                                                          Statistiques ZONE  |
+//=============================================================================================
+
 
 int Statistiques()
 {
@@ -384,16 +379,14 @@ int Statistiques()
         printf("le nombre de taches incompletes est : %d",i-count_done);
         break;
     case 4:
-    {
-        printf("| %-10s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Heur", "Day");
-        printf("|------------|------------|--------|--------|\n");
-
         AFFICHIER0();
-    }
-    break;
+        break;
     }
 }
-//////////////////////
+//=============================================================================================
+//                                                                                  main ZONE  |
+//=============================================================================================
+
 int main(void)
 {
 
@@ -411,18 +404,17 @@ int main(void)
             break;
         case 2:
 
-            AFFICHER();
+            AFFICHER_Mom();
             break;
         case 3:
 
             Modify();
             break;
         case 4:
-            delete_by_id ();
+            delete_by_id();
             break;
         case 5:
         {
-
             printf("1: par titre\n\n");
             printf("2: par id \n");
             int Choose1;
@@ -438,6 +430,7 @@ int main(void)
                 break;
             }
         }
+        break;
         case 6:
             Statistiques();
             break;
