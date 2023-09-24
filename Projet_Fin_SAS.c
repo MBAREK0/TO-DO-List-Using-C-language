@@ -31,7 +31,6 @@ void MENU()
     printf("\n\t\t\t|                                         |                                         |");
     printf("\n\t\t\t|               7. Clear                  |              0. EXIT                    |");
     printf("\n\t\t\t|_________________________________________|_________________________________________|");
-
 }
 //=============================================================================================
 //                                                                               STRUCTE ZONE  |
@@ -281,7 +280,6 @@ void Search_by_Id ()
 //=============================================================================================
 int found_index() //-------------------- find the index of task to use it in defrance fonctions
 {
-
     int Modif,copier_id;
     printf("Enter the ID of the task you want to Modify or Delete: ");
     scanf("%d",&Modif);
@@ -297,7 +295,12 @@ int found_index() //-------------------- find the index of task to use it in def
 void delete_by_id ()
 {
     int j=found_index();
-    for(int m=j; m<i; m++)Tache[m] = Tache[m+1];
+    if(strcmp(Tache[j].Statut,s[2])==0)count_done--;
+    for(int m=j; m<i; m++)
+    {
+        Tache[m] = Tache[m+1];
+
+    }
     i--;
 }
 
@@ -426,61 +429,61 @@ int main(void)
 
     int Choose;
 
-        MENU();
-        printf("\n\n\t\tentre your choss : ");
-        scanf("%d",&Choose);
-        switch(Choose)
-        {
-        case 0:
-            return 0;
-            break;
-        case 1:
+    MENU();
+    printf("\n\n\t\tentre your choss : ");
+    scanf("%d",&Choose);
+    switch(Choose)
+    {
+    case 0:
+        return 0;
+        break;
+    case 1:
 
-            AJOUTER();
-            main();
-            break;
-        case 2:
-
-            AFFICHER_Mom();
-            main();
-            break;
-        case 3:
-
-            Modify();
-            main();
-            break;
-        case 4:
-            delete_by_id();
-            main();
-            break;
-        case 5:
-        {
-            printf("\n1: par titre\t");
-            printf("2: par id \n");
-            int Choose1;
-            printf("\nenter your choose : ");
-            scanf("%d",&Choose1);
-            switch(Choose1)
-            {
-            case 1:
-                Search_by_Title ();
-                break;
-            case 2:
-                Search_by_Id ();
-                break;
-            }
-        }
+        AJOUTER();
         main();
         break;
-        case 6:
-            Statistiques();
-            main();
+    case 2:
+
+        AFFICHER_Mom();
+        main();
+        break;
+    case 3:
+
+        Modify();
+        main();
+        break;
+    case 4:
+        delete_by_id();
+        main();
+        break;
+    case 5:
+    {
+        printf("\n1: par titre\t");
+        printf("2: par id \n");
+        int Choose1;
+        printf("\nenter your choose : ");
+        scanf("%d",&Choose1);
+        switch(Choose1)
+        {
+        case 1:
+            Search_by_Title ();
             break;
-        case 7:
-            system("cls");
-            main();
+        case 2:
+            Search_by_Id ();
             break;
         }
+    }
+    main();
+    break;
+    case 6:
+        Statistiques();
+        main();
+        break;
+    case 7:
+        system("cls");
+        main();
+        break;
+    }
 
     return (0);
 }
