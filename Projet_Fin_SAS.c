@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -83,8 +81,8 @@ void AJOUTER()
     printf("\t Description : ");
     scanf(" %[^\n]s ",Tache[i].Description);
     strcpy(Tache[i].Statut,s[0]);
-    printf("\t Statut :%s",Tache[i].Statut);
-    printf("\tDEADLINE dd/mm/yy\n");
+    printf("\t Statut :%s\n",Tache[i].Statut);
+    printf("\t DEADLINE dd/mm/yy\n");
     printf("\t\t\t dd : ");
     scanf("%d",&Tache[i].dd);
     printf("\t\t\t mm : ");
@@ -93,13 +91,14 @@ void AJOUTER()
     scanf("%d",&Tache[i].yy);
     printf("\t\t\t heur : ");
     scanf("%d",&Tache[i].heur);
-    printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     Change_date_to_seconds(i);
     count+=1;
     Tache[i].Id=count;
     i++;
     int Choose1 ;
-    printf("\n\n\t\t0:EXITE\t  |  1: NEW TASK\t  \n");
+    printf(" | 0:EXITE\t  |  1: NEW TASK   |");
+    printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     printf("             ==> ");
     scanf("%d",&Choose1);
     if(Choose1==1) AJOUTER();
@@ -115,7 +114,6 @@ void AF(int j)         // ----------------------------------Display the informat
            Tache[j].Id, Tache[j].Titre, Tache[j].Description, Tache[j].Statut,
            AFDAY(result), AFheur(AFDAY(result)));
 }
-
 void AFFICHIER0()   // ---------------------------------------Display the informatiion of tasks
 {
     printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut","Day","Heur");
@@ -134,7 +132,6 @@ void AFFICHIER0()   // ---------------------------------------Display the inform
 }
 void AFFICHERALPHA() //-------------------------- Display the informatiion of tasks by alpha ordre
 {
-
     for(int j=0; j<i; j++)
     {
         for(int m=j+1; m<i; m++)
@@ -209,9 +206,8 @@ void AFFICHER_Mom() // ---------------------------------------------main display
     printf("\n\t\t1: in alphabetical order\n");
     printf("\t\t2: by deadline\n");
     printf("\t\t3: Display tasks with a deadline of 3 days or less\n");
-
     int Choose1;
-    printf("\nenter your choose");
+    printf("\nenter your choose : ");
     scanf("%d",&Choose1);
     switch(Choose1)
     {
@@ -299,11 +295,9 @@ void delete_by_id ()
     for(int m=j; m<i; m++)
     {
         Tache[m] = Tache[m+1];
-
     }
     i--;
 }
-
 //=============================================================================================
 //                                                                              Modifier ZONE  |
 //=============================================================================================
@@ -326,7 +320,6 @@ void Modifier_le_statut()
     default:
         printf("wronge number ");
         Modifier_le_statut();
-
     }
 }
 void Modifier_le_deadline()
@@ -426,7 +419,6 @@ int Statistiques()
 
 int main(void)
 {
-
     int Choose;
 
     MENU();
@@ -438,7 +430,6 @@ int main(void)
         return 0;
         break;
     case 1:
-
         AJOUTER();
         main();
         break;
@@ -484,6 +475,5 @@ int main(void)
         main();
         break;
     }
-
     return (0);
 }
