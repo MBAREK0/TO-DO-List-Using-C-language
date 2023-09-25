@@ -136,6 +136,8 @@ void AFFICHERALPHA() //-------------------------- Display the informatiion of ta
     {
         for(int m=j+1; m<i; m++)
         {
+            to_upper(Tache[j].Titre);
+            to_upper(Tache[m].Titre);
             if(strcmp(Tache[j].Titre, Tache[m].Titre)>0)
             {
                 TASK = Tache[j];
@@ -190,7 +192,6 @@ void AFFICHE_3_day_or_less()
             AF(j);
             test++;
         }
-
     }
     printf("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     if(test==0)printf("\n\t\t NO_THING!\n");
@@ -211,7 +212,6 @@ void AFFICHER_Mom() // ---------------------------------------------main display
     scanf("%d",&Choose1);
     switch(Choose1)
     {
-
     case 1:
         AFFICHERALPHA();
         break;
@@ -229,25 +229,28 @@ void AFFICHER_Mom() // ---------------------------------------------main display
 //=============================================================================================
 //                                                                                Search ZONE  |
 //=============================================================================================
-char* to_upper(char* str) //------------------------------------- change the title to uppercase
+void to_upper(char str[]) //------------------------------------- change the title to uppercase
 {
     int length = strlen(str);
     for (int i = 0; i < length; i++)
     {
         str[i] = toupper(str[i]);
     }
-    return str;
+
 }
 void Search_by_Title ()
 {
     char Choose1[20];
     printf("\n\n\t\tENTER THE TASK TITLE : ");
     scanf("%s",&Choose1);
+    to_upper(Choose1); // make choose capitel
+
     printf("| %-10s | %-20s | %-20s | %-10s | %-6s | %-6s |\n", "ID", "Titre", "Description", "Statut","Day","Heur");
     printf("|------------|----------------------|----------------------|------------|--------|--------|\n");
     for(int j=0; j<i; j++)
     {
-        if(strcmp(to_upper(Tache[j].Titre),to_upper(Choose1))==0)
+        to_upper(Tache[j].Titre);// make titre capitel
+        if(strcmp(Tache[j].Titre,Choose1)==0)
         {
             AF(j) ;
             break;
@@ -408,7 +411,6 @@ int Statistiques()
             printf("| %-20s | %-6.0f | %-6.0f |\n", Tache[j].Titre, AFDAY(result), AFheur(AFDAY(result)));
             printf("|----------------------|--------|--------|\n");
         }
-
     }
     break;
     }
@@ -474,6 +476,7 @@ int main(void)
         system("cls");
         main();
         break;
+       // default : main();break;
     }
     return (0);
 }
